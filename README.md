@@ -1,4 +1,19 @@
-Here's the whole system, end to end. I haven't looked at your test run's results yet; I can go through them next.
+# Run it (demo)
+
+1. `cp .env.example .env` and fill it in (ACS, Azure OpenAI with `gpt-realtime` + `gpt-4.1-mini`, Postgres).
+2. Load the synthetic data once: `./db/load.sh`
+3. Expose port 8080 with a Dev Tunnel (anonymous access) and put its URL in `PUBLIC_URL`.
+4. `cd agent && uv run uvicorn app:app --port 8080`
+5. Open two windows:
+   - **`/`**: the clinic front desk softphone. Click sign in and allow the mic. You play the office.
+   - **`/console`**: the insurer's Network Integrity Console. Set "Listings" to 3–5 and click **Start verification**.
+6. Answer the agent's call in the clinic window. The console shows the live transcript, the 6 answers filling in, the verdict, the human-review inbox and the claims Agent 2 flagged.
+
+Demo moves: `GET /api/role-card/L0013` tells you how to play a listing's hidden truth. After a listing is removed,
+`POST /api/demo/intake/L0013` bills a claim there, and **Re-scan claims** on the console flags it.
+Fabric: `uv run python fabric_export.py` writes CSVs to upload to the Lakehouse (see the file header).
+
+---
 
 # The big picture
 
@@ -48,7 +63,7 @@ The synthetic data is generated so each ghost type leaves a different fingerprin
 ---
 
 # Stage 1: Study claims (rules plus the triage agent)
-Code: [triage.py](Microsoft_hackathon/agent/triage.py) and [agents.py](Microsoft_hackathon/agent/agents.py)
+Code: [triage.py](agent/triage.py) and [agents.py](agent/agents.py)
 
 **Step 1a: hard-fail rules, no LLM.** A listing is suppressed straight away if the license isn't active or has expired, the therapist is sanctioned, or the network contract ended. Nobody needs to judge these.
 
@@ -84,7 +99,7 @@ When a guardrail fires, the stored reason records both sides, for example: "agen
 ---
 
 # Stage 2: Prioritize (ML plus formula, no LLM)
-Code: `score()` and `p_wrong()` in [triage.py](Microsoft_hackathon/agent/triage.py)
+Code: `score()` and `p_wrong()` in [triage.py](agent/triage.py)
 
 Every listing that needs a call gets a **dollar exposure per month**, and they're called highest first:
 
@@ -137,7 +152,7 @@ The cost stands for delayed care, call-center and complaint handling, and No Sur
 ---
 
 # Stage 3: Call
-Code: [app.py](Microsoft_hackathon/agent/app.py)
+Code: [app.py](agent/app.py)
 
 How a call works:
 - **Azure Communication Services (ACS)** places a web call to the "clinic" identity. That's the clinic page in a browser, because the sandbox can't dial real phones.
@@ -171,7 +186,7 @@ The run places calls **one after another**:
 ---
 
 # Stage 4: Evaluate (rules plus the evaluator agent)
-Code: [evaluator.py](Microsoft_hackathon/agent/evaluator.py)
+Code: [evaluator.py](agent/evaluator.py)
 
 **Step 4a: rule check, in code.** This compares the answers with the evidence and lists conflicts:
 
@@ -214,8 +229,16 @@ The old phone and address are kept on the evaluation, so the report can show wha
 
 ---
 
+# Agent 2: Claims check
+Code: [claims_check.py](agent/claims_check.py). Runs at the end of every run and from **Re-scan claims** on the console.
+It flags claims (received in the last 180 days) for a person and never pays or denies anything:
+sanctioned provider, license inactive, contract ended, billed from an office not in the directory,
+and visits at a listing the verifier removed after a call. Reviewers confirm (send to SIU) or dismiss.
+
+---
+
 # Stage 5: Report
-Code: [report.py](Microsoft_hackathon/agent/report.py) and [report.html](Microsoft_hackathon/agent/static/report.html)
+Code: [report.py](agent/report.py) and [report.html](agent/static/report.html)
 
 The report has:
 - **An executive summary** written by gpt-4.1-mini from the run's numbers.
@@ -236,7 +259,7 @@ The report has:
 ---
 
 # How an agent works under the hood
-`run_agent()` in [agents.py](Microsoft_hackathon/agent/agents.py) is a standard tool-calling loop:
+`run_agent()` in [agents.py](agent/agents.py) is a standard tool-calling loop:
 1. Send the model the instructions, the task ("Triage listing L0005") and the tool list.
 2. Every turn the model **must** call a tool (`tool_choice="required"`). We run the tool, return the result, and loop.
 3. When it calls its **submit** tool, the loop ends and returns the decision. The submit tool uses a strict schema, so the output is always well-formed.

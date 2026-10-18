@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clinic Front Desk</title>
+<style>
+  :root { --bg:#f6f5f2; --card:#fff; --ink:#1d1d1b; --muted:#6b6a66; --line:#e3e1dc;
+          --ok:#2f7d4f; --ring:#b06a00; --live:#1f5fbf; --bad:#b3261e; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 520px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:14px; }
+  #status { font-weight:600; }
+  #status[data-tone=ok]{color:var(--ok)} #status[data-tone=ring]{color:var(--ring)}
+  #status[data-tone=live]{color:var(--live)} #status[data-tone=bad]{color:var(--bad)}
+  .row { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  button { font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 16px; cursor:pointer;
+           background:var(--ink); color:#fff; }
+  button:disabled { opacity:.5; cursor:default; }
+  #answer { background:var(--ok); } #decline, #hangup { background:var(--bad); }
+  label { font-size:13px; color:var(--muted); }
+  .big { font-size:18px; font-weight:600; margin-top:4px; } .muted { color:var(--muted); }
+  .hint { font-size:13px; color:var(--muted); margin:10px 0 0; }
+  ul { list-style:none; padding:0; margin:0; font: 13px ui-monospace, Menlo, monospace; color:var(--muted); }
+  li { padding:3px 0; border-bottom:1px dashed var(--line); }
+  .role { margin-top:12px; padding:10px 12px; border-radius:8px; background:#fdf1de; }
+  .role div { font-weight:600; margin-top:2px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Clinic Front Desk</h1>
+  <p class="sub">This page is the therapist office's phone. Sign in and leave it open; the verification agent calls it from the operator page.</p>
+
+  <div class="card">
+    <div id="status">Not signed in</div>
+    <div class="row">
+      <button id="signin">Sign in &amp; allow microphone</button>
+      <button id="answer" hidden>Answer</button>
+      <button id="decline" hidden>Decline</button>
+      <button id="hangup" hidden>Hang up</button>
+    </div>
+  </div>
+
+  <div class="card" id="about" hidden>
+    <label>This call is about the listing for</label>
+    <div id="about-name" class="big"></div>
+    <div id="about-addr" class="muted"></div>
+    <p class="hint">Play this office's front desk and answer the agent's questions.</p>
+    <div id="role" class="role" hidden>
+      <label>Demo role card · from the hidden answer key</label>
+      <div id="role-text"></div>
+    </div>
+  </div>
+
+  <div class="card"><ul id="log"></ul></div>
+</main>
+<script src="/static/clinic.bundle.js"></script>
+</body>
+</html>

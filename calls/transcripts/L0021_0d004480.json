@@ -1,0 +1,33 @@
+{
+  "call_connection_id": "0d004480-03e9-4265-ac82-237c080504d5",
+  "listing": {
+    "listing_id": "L0021",
+    "full_name": "Amara Morales",
+    "address": "923 N Kedzie Ave, Suite 501",
+    "city": "Chicago",
+    "zip": "60618",
+    "phone": "(773) 555-0105"
+  },
+  "brief": {
+    "last_intake_on": "2026-06-14",
+    "days_since_intake": 126,
+    "last_intake_said": "June 14, 2026, 126 days ago",
+    "last_visit_on": "2026-07-27",
+    "days_since_visit": 83,
+    "last_visit_said": "July 27, 2026, 83 days ago",
+    "visits_90d": 1,
+    "patients_90d": 1,
+    "intakes_12m": 5,
+    "submit_by": "November 1, 2026",
+    "complaints_90d": {},
+    "probe": true,
+    "evidence": "the last new-patient visit billed at this office was on June 14, 2026 (126 days ago); over the last 90 days, claims show 1 visits with 1 different existing patients"
+  },
+  "status": "failed",
+  "transcript": [],
+  "answers": {},
+  "end_reason": "declined_or_hung_up",
+  "failure": "487/10004 Call was cancelled on timeout, as target user did not accept or reject it on time. Ensure that user saw the notification",
+  "started_at": "2026-10-18T14:08:17.385220+00:00",
+  "ended_at": "2026-10-18T14:09:16.117918+00:00"
+}

@@ -1,0 +1,41 @@
+{
+  "call_connection_id": "03004580-7123-48e7-9cce-da8cd57631e1",
+  "listing": {
+    "listing_id": "L0024",
+    "full_name": "Sofia Iyer, MD",
+    "address": "3877 N Halsted St, Suite 501",
+    "city": "Chicago",
+    "zip": "60614",
+    "phone": "(773) 555-0159"
+  },
+  "brief": {
+    "last_intake_on": "2025-12-09",
+    "days_since_intake": 313,
+    "last_intake_said": "December 9, 2025, 313 days ago",
+    "last_visit_on": "2026-05-26",
+    "days_since_visit": 145,
+    "last_visit_said": "May 26, 2026, 145 days ago",
+    "visits_90d": 0,
+    "patients_90d": 0,
+    "intakes_12m": 3,
+    "submit_by": "November 1, 2026",
+    "complaints_90d": {
+      "couldnt_book": 3
+    },
+    "probe": true,
+    "evidence": "the last new-patient visit billed at this office was on December 9, 2025 (313 days ago); no visits were billed here in the last 90 days; 3 plan member(s) reported they couldn't book a new-patient appointment in the last 90 days"
+  },
+  "status": "ended",
+  "transcript": [
+    {
+      "at": "2026-10-18T14:07:08+00:00",
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes a couple of minutes. Is this the office of Sofia Iyer, MD at 3877 N Halsted St, Suite 501?"
+    }
+  ],
+  "answers": {},
+  "end_reason": "declined_or_hung_up",
+  "failure": null,
+  "started_at": "2026-10-18T14:06:51.939178+00:00",
+  "ended_at": "2026-10-18T14:08:06.625167+00:00"
+}

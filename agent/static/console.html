@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network Integrity Console · Lakeshore Health Plan</title>
+<style>
+  :root {
+    --bg:#f4f6fa; --card:#fff; --ink:#0f1b2d; --muted:#5d6b80; --line:#e3e8ef; --soft:#f0f3f8;
+    --brand:#0b5cff; --brand2:#5b3df5; --ok:#0f8a5f; --okbg:#e3f5ec; --warn:#b26a00; --warnbg:#fff3dc;
+    --bad:#c4321f; --badbg:#fde8e4; --live:#0b5cff; --livebg:#e6eeff; --violet:#6b3fd4; --violetbg:#efe9fd;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:14px/1.45 "Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif; }
+  .top { background:linear-gradient(115deg,#071a3d 0%,#0b2f73 55%,#3b25a8 100%); color:#fff; }
+  .top-in { max-width:1480px; margin:0 auto; padding:18px 20px 22px; }
+  .bar { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .logo { width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,#4f8bff,#a77bff);
+          display:grid; place-items:center; font-weight:800; font-size:17px; box-shadow:0 4px 14px #0004; }
+  .brand b { font-size:17px; letter-spacing:.2px; display:block; }
+  .brand span { font-size:12px; opacity:.72; }
+  .spacer { flex:1; }
+  .pill { display:inline-flex; align-items:center; gap:7px; padding:5px 12px; border-radius:999px;
+          background:#ffffff1a; border:1px solid #ffffff2a; font-size:12px; font-weight:600; }
+  .dot { width:8px; height:8px; border-radius:50%; background:#8fa3c4; }
+  .dot.on { background:#3ee08f; box-shadow:0 0 0 0 #3ee08f; animation:pulse 1.6s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 #3ee08f88} 70%{box-shadow:0 0 0 9px #3ee08f00} 100%{box-shadow:0 0 0 0 #3ee08f00} }
+  .top a { color:#fff; opacity:.85; font-size:13px; text-decoration:none; }
+  .top a:hover { opacity:1; text-decoration:underline; }
+  button { font:inherit; font-weight:600; border:0; border-radius:9px; padding:8px 14px; cursor:pointer; white-space:nowrap; }
+  button:disabled { opacity:.4; cursor:default; }
+  .btn-primary { background:#fff; color:#0b2f73; }
+  .btn-ghost { background:#ffffff1f; color:#fff; border:1px solid #ffffff33; }
+  .runctl { display:flex; gap:8px; align-items:center; }
+  .runctl input { width:58px; padding:7px 8px; border-radius:8px; border:1px solid #ffffff44; background:#ffffff14;
+                  color:#fff; font:inherit; text-align:center; }
+  .runctl label { font-size:12px; opacity:.75; }
+
+  .steps { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; margin-top:20px; }
+  .step { position:relative; padding:10px 12px; border-radius:12px; background:#ffffff10; border:1px solid #ffffff1c; min-width:0; }
+  .step .n { font-size:11px; opacity:.6; font-weight:700; letter-spacing:.6px; text-transform:uppercase; }
+  .step .t { font-weight:700; font-size:13px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .step .d { font-size:11.5px; opacity:.7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .step.done { background:#3ee08f1f; border-color:#3ee08f55; }
+  .step.active { background:#ffffff2a; border-color:#fff; box-shadow:0 0 0 3px #ffffff22; }
+  .step.active::after { content:""; position:absolute; left:12px; right:12px; bottom:5px; height:2px; border-radius:2px;
+     background:linear-gradient(90deg,transparent,#fff,transparent); background-size:200% 100%; animation:sweep 1.4s linear infinite; }
+  @keyframes sweep { from{background-position:200% 0} to{background-position:-200% 0} }
+  .phase { margin-top:10px; font-size:13px; opacity:.85; min-height:19px; }
+  @media (max-width:900px){ .steps{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+
+  main { max-width:1480px; margin:0 auto; padding:20px; }
+  .kpis { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px; margin-top:-38px; }
+  @media (max-width:1100px){ .kpis{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media (max-width:600px){ .kpis{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+         box-shadow:0 6px 20px #0b2f7312; }
+  .kpi .l { font-size:12px; color:var(--muted); font-weight:600; }
+  .kpi .v { font-size:26px; font-weight:750; letter-spacing:-.5px; margin-top:4px; font-variant-numeric:tabular-nums; }
+  .kpi .s { font-size:12px; color:var(--muted); margin-top:2px; }
+  .kpi.hl .v { background:linear-gradient(90deg,var(--brand),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .kpi.good .v { color:var(--ok); } .kpi.bad .v { color:var(--bad); } .kpi.warn .v { color:var(--warn); }
+
+  .grid { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:16px; margin-top:16px; align-items:start; }
+  @media (max-width:1100px){ .grid{ grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; min-width:0; }
+  .card h2 { font-size:15px; margin:0; }
+  .card .head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .sub { color:var(--muted); font-size:12px; }
+  .scroll { overflow:auto; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; font-weight:600; color:var(--muted); font-size:11.5px; padding:7px 8px; border-bottom:1px solid var(--line);
+       white-space:nowrap; position:sticky; top:0; background:var(--card); text-transform:uppercase; letter-spacing:.4px; }
+  td { padding:9px 8px; border-bottom:1px solid var(--soft); vertical-align:middle; }
+  tr.live td { background:var(--livebg); }
+  tr.clickable { cursor:pointer; } tr.clickable:hover td { background:#f7f9fd; }
+  .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .who b { display:block; } .who span { color:var(--muted); font-size:12px; }
+  .rank { display:inline-grid; place-items:center; width:24px; height:24px; border-radius:7px; background:var(--soft);
+          font-weight:700; font-size:12px; color:var(--muted); }
+  .rank.top { background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff; }
+  .meter { width:70px; height:6px; border-radius:6px; background:var(--soft); overflow:hidden; display:inline-block; vertical-align:middle; margin-right:6px; }
+  .meter i { display:block; height:100%; background:linear-gradient(90deg,#f5b400,#e5482f); }
+  .chip { display:inline-block; padding:2px 9px; border-radius:999px; font-size:11.5px; font-weight:650; white-space:nowrap;
+          background:var(--soft); color:var(--muted); }
+  .c-ok { background:var(--okbg); color:var(--ok); } .c-bad { background:var(--badbg); color:var(--bad); }
+  .c-warn { background:var(--warnbg); color:var(--warn); } .c-live { background:var(--livebg); color:var(--live); }
+  .c-violet { background:var(--violetbg); color:var(--violet); }
+
+  /* live call */
+  .callhead { display:flex; gap:12px; align-items:center; }
+  .avatar { width:46px; height:46px; border-radius:50%; display:grid; place-items:center; font-weight:700; color:#fff;
+            background:linear-gradient(135deg,#4f8bff,#a77bff); flex:none; }
+  .callhead .who b { font-size:15px; }
+  .wave { display:flex; gap:3px; align-items:center; height:26px; margin-left:auto; }
+  .wave i { width:3px; border-radius:3px; background:var(--brand); height:6px; }
+  .wave.on i { animation:wv 1s ease-in-out infinite; }
+  .wave i:nth-child(2){animation-delay:.1s} .wave i:nth-child(3){animation-delay:.2s} .wave i:nth-child(4){animation-delay:.3s}
+  .wave i:nth-child(5){animation-delay:.4s} .wave i:nth-child(6){animation-delay:.5s} .wave i:nth-child(7){animation-delay:.6s}
+  @keyframes wv { 0%,100%{height:5px} 50%{height:24px} }
+  .qs { display:grid; gap:6px; margin:14px 0; }
+  .q { display:grid; grid-template-columns:22px 1fr auto; gap:8px; align-items:center; padding:7px 10px; border-radius:9px; background:var(--soft); font-size:13px; }
+  .q .ic { width:20px; height:20px; border-radius:50%; display:grid; place-items:center; font-size:11px; font-weight:800;
+           background:#dfe5ee; color:#8593a8; }
+  .q.ans { background:#f2f8f5; } .q.ans .ic { background:var(--ok); color:#fff; }
+  .q.flag { background:#fff6f4; } .q.flag .ic { background:var(--bad); color:#fff; }
+  .q .val { font-weight:650; text-align:right; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .q .val.pending { color:#a5b0c0; font-weight:400; }
+  .extra { font-size:12px; color:var(--muted); margin:-4px 0 10px; }
+  .extra b { color:var(--ink); font-weight:600; }
+  .transcript { display:flex; flex-direction:column; gap:8px; max-height:340px; overflow-y:auto; padding:4px 2px; scroll-behavior:smooth; }
+  .bub { max-width:86%; padding:8px 12px; border-radius:14px; font-size:13px; }
+  .bub.new { animation:in .25s ease-out; }
+  @keyframes in { from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none} }
+  .bub small { display:block; font-size:10.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; opacity:.6; margin-bottom:2px; }
+  .bub.agent { align-self:flex-start; background:linear-gradient(135deg,#eaf0ff,#f0eaff); border-bottom-left-radius:4px; }
+  .bub.clinic { align-self:flex-end; background:#f1f3f6; border-bottom-right-radius:4px; }
+  .bub.typing { color:var(--muted); font-style:italic; }
+  .verdict { margin-top:14px; border-radius:12px; padding:12px 14px; border:1px solid var(--line); background:#fbfcfe; }
+  .verdict .big { font-weight:750; font-size:15px; }
+  .verdict ul { margin:6px 0 0; padding-left:18px; color:var(--muted); font-size:12.5px; }
+  .mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+  .empty { color:var(--muted); text-align:center; padding:30px 10px; font-size:13px; }
+
+  .tabs { display:flex; gap:4px; margin:22px 0 12px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .tab { background:none; color:var(--muted); border-radius:9px 9px 0 0; padding:9px 14px; border-bottom:2px solid transparent; }
+  .tab.on { color:var(--ink); border-bottom-color:var(--brand); }
+  .tab .count { margin-left:6px; background:var(--soft); color:var(--muted); border-radius:999px; padding:1px 7px; font-size:11px; }
+  .tab .count.hot { background:var(--badbg); color:var(--bad); }
+  .panel[hidden] { display:none; }
+  .reviews { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:12px; }
+  .rv { border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--card); }
+  .rv .chip { flex:none; align-self:flex-start; white-space:normal; max-width:55%; text-align:right; }
+  .rv h3 { margin:0; font-size:14px; } .rv .meta { color:var(--muted); font-size:12px; }
+  .rv ul { margin:8px 0; padding-left:18px; font-size:12.5px; color:#8a2b1d; }
+  .rv p { font-size:12.5px; color:var(--muted); margin:8px 0; }
+  .rv .acts { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+  .b-ok { background:var(--okbg); color:var(--ok); } .b-bad { background:var(--badbg); color:var(--bad); }
+  .b-warn { background:var(--warnbg); color:var(--warn); } .b-soft { background:var(--soft); color:var(--muted); }
+  .b-dark { background:var(--ink); color:#fff; }
+  .flagsum { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-bottom:14px; }
+  .fs { border:1px solid var(--line); border-radius:12px; padding:12px; background:var(--card); }
+  .fs .l { font-size:12px; color:var(--muted); font-weight:600; } .fs .v { font-size:20px; font-weight:750; }
+  .fs .s { font-size:12px; color:var(--muted); }
+  .small-btn { padding:4px 9px; font-size:12px; border-radius:7px; }
+  .change { display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--soft); flex-wrap:wrap; }
+  .change s { color:var(--bad); opacity:.75; } .change .new { color:var(--ok); font-weight:650; }
+  .summary { font-size:14px; line-height:1.6; background:linear-gradient(135deg,#f5f8ff,#f7f3ff); border:1px solid #e1e6fb;
+             border-radius:12px; padding:14px 16px; }
+  .toast { position:fixed; right:20px; bottom:20px; background:var(--ink); color:#fff; padding:10px 14px; border-radius:10px;
+           font-size:13px; box-shadow:0 10px 30px #0004; opacity:0; transform:translateY(10px); transition:.25s; pointer-events:none; }
+  .toast.on { opacity:1; transform:none; }
+  .foot { color:var(--muted); font-size:12px; text-align:center; padding:26px 0 10px; }
+</style>
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <div class="bar">
+    <div class="logo">L</div>
+    <div class="brand"><b>Network Integrity Console</b><span>Lakeshore Health Plan · Provider Directory Accuracy</span></div>
+    <span class="pill"><span class="dot" id="livedot"></span><span id="livetxt">Idle</span></span>
+    <div class="spacer"></div>
+    <a href="/" target="_blank" title="Opens the clinic front-desk softphone the agent calls">Clinic phone ↗</a>
+    <a href="/report" target="_blank">Full report ↗</a>
+    <div class="runctl">
+      <label for="limit">Listings</label><input id="limit" type="number" min="1" value="10">
+      <label for="offset">from</label><input id="offset" type="number" min="0" value="0">
+      <button class="btn-primary" id="start">▶ Start verification</button>
+      <button class="btn-ghost" id="stop" hidden>Stop after this call</button>
+    </div>
+  </div>
+  <div class="steps" id="steps"></div>
+  <div class="phase" id="phase"></div>
+</div></div>
+
+<main>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <section class="card">
+      <div class="head">
+        <div><h2>Call queue · ranked by $ exposure</h2>
+          <div class="sub">Exposure / month = P(listing wrong) × members likely to try × cost of a failed attempt</div></div>
+        <span class="sub" id="qcount"></span>
+      </div>
+      <div class="scroll" style="max-height:640px">
+        <table><thead><tr><th></th><th>Provider</th><th>Claims verdict</th><th>P(wrong)</th><th class="num">$ / month</th><th>Outcome</th><th></th></tr></thead>
+        <tbody id="queue"></tbody></table>
+      </div>
+    </section>
+
+    <section class="card" id="livecard">
+      <div class="head"><h2 id="livetitle">Voice agent</h2><span class="chip" id="livechip">—</span></div>
+      <div id="live"><div class="empty">No call yet. Open the <b>Clinic phone</b> in another window, sign in, then start a verification run.</div></div>
+    </section>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-tab="review">Human review<span class="count" id="n-review">0</span></button>
+    <button class="tab" data-tab="claims">Claims flagged · Agent 2<span class="count" id="n-claims">0</span></button>
+    <button class="tab" data-tab="changes">Directory changes<span class="count" id="n-changes">0</span></button>
+    <button class="tab" data-tab="summary">Run summary</button>
+  </div>
+  <section class="panel" id="p-review"><div class="reviews" id="reviews"></div></section>
+  <section class="panel" id="p-claims" hidden>
+    <div class="flagsum" id="flagsum"></div>
+    <div class="card"><div class="head"><div><h2>Claims tied to a wrong or ineligible listing</h2>
+      <div class="sub">Agent 2 flags for a person. It never pays, denies or changes a claim.</div></div>
+      <button class="b-dark small-btn" id="recheckClaims">Re-scan claims</button></div>
+      <div class="scroll" style="max-height:520px"><table><thead><tr><th>Claim</th><th>Provider</th><th>Office</th><th>Why flagged</th>
+        <th class="num">Paid</th><th>Status</th><th></th></tr></thead><tbody id="flags"></tbody></table></div></div>
+  </section>
+  <section class="panel" id="p-changes" hidden><div class="card" id="changes"></div></section>
+  <section class="panel" id="p-summary" hidden><div class="card"><div class="summary" id="summary">No run yet.</div></div></section>
+  <div class="foot">Synthetic data only · The voice agent always says it is automated · Humans decide anything unclear</div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money = (n) => "$" + Math.round(Number(n || 0)).toLocaleString();
+const initials = (n) => (n || "?").replace(/^Dr\.?\s*/, "").split(/\s+/).map((w) => w[0]).slice(0, 2).join("");
+let state = { run: {}, queue: [], calls: [], reviews: [], flags: { flags: [], summary: {}, open_amount: 0 }, report: null };
+let pinned = null;   // call_id the user clicked; otherwise follow the live call
+let lastTurns = 0, lastCall = null;
+
+const STEPS = [
+  ["Study claims", "rules + triage agent"], ["Prioritize", "ML P(wrong) × $"], ["Call", "voice agent"],
+  ["Evaluate", "evaluator agent"], ["Report", "summary + rechecks"], ["Claims check", "Agent 2 flags"],
+];
+const DECISION = {
+  verified_accepting: ["Confirmed", "c-ok"], provisionally_accepting: ["Provisional", "c-violet"],
+  set_not_accepting: ["Corrected · not accepting", "c-warn"], suppress_listing: ["Removed", "c-bad"],
+  no_change: ["No change", ""], pending_review: ["Needs review", "c-warn"],
+};
+const VERDICT = { hard_fail: ["Hard fail", "c-bad"], accepting: ["Cleared", "c-ok"], not_accepting: ["Not accepting", "c-warn"],
+  needs_call: ["Needs call", "c-live"], provisional: ["Provisional", "c-violet"] };
+const QUESTIONS = [
+  ["identity_confirmed", "Right office?"], ["practicing_here", "Still practicing here?"], ["accepts_plan", "Accepts the plan?"],
+  ["accepting_new", "Taking new patients?"], ["next_new_appt", "Earliest new-patient slot"], ["phone_correct", "Phone number correct?"],
+];
+const EXTRA_LABELS = { not_accepting_reason: "Why not", existing_patients: "Existing patients", expected_reopen: "Reopens",
+  claims_pending: "Unsubmitted claims", last_new_patient_on: "Last new patient", recent_change: "What changed",
+  portal_update_asked: "Portal update", closed_since: "Closed since", left_on: "Left on", moved_on: "Moved on" };
+
+function toast(t) { const el = $("toast"); el.textContent = t; el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 2600); }
+async function j(url, opts) { const r = await fetch(url, opts); if (!r.ok) throw new Error((await r.text()) || r.status); return r.json(); }
+function post(url, body) { return j(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }); }
+
+function renderSteps() {
+  const r = state.run, running = r.status === "running";
+  const stage = running ? r.stage : (r.status === "done" || r.status === "stopped" ? 7 : 0);
+  $("steps").innerHTML = STEPS.map(([t, d], i) => {
+    const n = i + 1, cls = stage > n ? "done" : stage === n || (running && n === 6 && stage === 5) ? "active" : "";
+    return `<div class="step ${cls}"><div class="n">${stage > n ? "✓ " : ""}Step ${n}</div><div class="t">${t}</div><div class="d">${d}</div></div>`;
+  }).join("");
+  $("phase").textContent = r.phase ? r.phase + (r.note ? ` · ${r.note}` : "") : "Ready. Each run studies claims, ranks by dollar risk, calls the riskiest offices, then flags claims.";
+  const live = state.calls.find((c) => c.status === "ringing" || c.status === "in_progress");
+  $("livedot").className = "dot" + (running || live ? " on" : "");
+  $("livetxt").textContent = live ? (live.status === "ringing" ? "Dialing clinic…" : "On a call") : running ? "Run in progress" : r.status === "failed" ? "Last run failed" : "Idle";
+  $("start").disabled = running; $("stop").hidden = !running;
+}
+
+function renderKpis() {
+  const rep = state.report, x = rep?.exposure || {}, t = rep?.totals || {};
+  const flagsOpen = state.flags.flags.filter((f) => f.status === "open").length;
+  const tiles = [
+    ["hl", "Exposure found", money(x.total_per_month), "per month, listings checked"],
+    ["good", "Exposure removed", money(x.corrected_per_month), "fixed listings this run"],
+    ["", "Listings checked", t.listings ?? "—", `${t.decided_by_claims ?? 0} cleared by claims alone`],
+    ["", "Calls placed", t.called ?? 0, `${t.needed_call ?? 0} needed a call`],
+    ["warn", "Needs human review", state.reviews.length, money(x.pending_review_per_month) + "/mo still open"],
+    ["bad", "Claims flagged", flagsOpen, money(state.flags.open_amount) + " paid, open"],
+  ];
+  $("kpis").innerHTML = tiles.map(([c, l, v, s]) => `<div class="kpi ${c}"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
+}
+
+function outcomeCell(r) {
+  const live = r.last_call && (r.last_call.status === "ringing" || r.last_call.status === "in_progress");
+  if (live) return `<span class="chip c-live">● ${r.last_call.status === "ringing" ? "Dialing" : "On call"}</span>`;
+  if (r.reviewed_decision) return chip(DECISION[r.reviewed_decision]) + ` <span class="sub">by human</span>`;
+  if (r.needs_review) return chip(DECISION.pending_review);
+  if (r.decision) return chip(DECISION[r.decision]) + (r.front_desk === "not_good" ? ` <span class="chip c-bad" title="Front desk answers contradicted the evidence">front desk ✗</span>` : "");
+  if (r.call_rank) return `<span class="chip">Queued</span>`;
+  return `<span class="sub">—</span>`;
+}
+const withCred = (n, c) => (n || "").endsWith(c) ? n : `${n}, ${c}`;
+const chip = (d) => d ? `<span class="chip ${d[1]}">${d[0]}</span>` : "";
+
+function renderQueue() {
+  const rows = state.queue;
+  $("qcount").textContent = rows.length ? `${rows.filter((r) => r.call_rank).length} to call · ${rows.length} listings` : "";
+  const busy = state.run.status === "running" || state.calls.some((c) => c.status === "ringing" || c.status === "in_progress");
+  if (!rows.length) { $("queue").innerHTML = `<tr><td colspan="7" class="empty">Start a run to triage the directory.</td></tr>`; return; }
+  $("queue").innerHTML = rows.map((r) => {
+    const p = r.p_wrong == null ? null : Number(r.p_wrong);
+    const live = r.last_call && (r.last_call.status === "ringing" || r.last_call.status === "in_progress");
+    return `<tr class="${live ? "live" : ""} ${r.last_call ? "clickable" : ""}" data-call="${esc(r.last_call?.call_id || "")}">
+      <td>${r.call_rank ? `<span class="rank ${r.call_rank <= 3 ? "top" : ""}">${r.call_rank}</span>` : ""}</td>
+      <td class="who"><b>${esc(withCred(r.full_name, r.credential))}</b><span>${esc(r.listing_id)} · ${esc(r.address)}, ${esc(r.city)}</span></td>
+      <td>${chip(VERDICT[r.claims_verdict]) || `<span class="sub">${r.days_since_verified ?? "?"}d since verified</span>`}</td>
+      <td>${p == null ? "" : `<span class="meter"><i style="width:${Math.round(p * 100)}%"></i></span><span class="sub">${Math.round(p * 100)}%</span>`}</td>
+      <td class="num"><b>${r.exposure_per_month == null ? "" : money(r.exposure_per_month)}</b></td>
+      <td>${outcomeCell(r)}</td>
+      <td><button class="b-dark small-btn" data-callnow="${esc(r.listing_id)}" ${busy ? "disabled" : ""}
+        title="${busy ? "The clinic phone is busy" : "Have the agent call this office now"}">📞 Call now</button></td></tr>`;
+  }).join("");
+}
+
+function fmtAnswer(k, v) {
+  if (v == null) return null;
+  if (k === "identity_confirmed" && String(v).startsWith("moved")) return "Moved → " + String(v).split(":").slice(1).join(":").trim();
+  if (k === "phone_correct" && v !== "yes") { const d = String(v).replace(/\D/g, ""); return `New: (${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`; }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return new Date(v + "T12:00").toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  return String(v).replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
+}
+const BAD = { identity_confirmed: (v) => v !== "yes", practicing_here: (v) => v !== "yes", accepts_plan: (v) => v !== "yes",
+  accepting_new: (v) => v !== "yes", next_new_appt: (v) => v === "none", phone_correct: (v) => v !== "yes" };
+
+function renderLive() {
+  const live = state.calls.find((c) => c.status === "ringing" || c.status === "in_progress");
+  const c = live || (pinned && state.calls.find((x) => x.call_id === pinned)) || state.calls[0];
+  if (!c) return;
+  const l = c.listing, a = c.answers || {};
+  const st = { ringing: ["Dialing", "c-live"], in_progress: ["● Live", "c-live"], ended: ["Ended", "c-ok"], failed: ["Failed", "c-bad"] }[c.status] || [c.status, ""];
+  $("livechip").className = "chip " + st[1]; $("livechip").textContent = st[0];
+  $("livetitle").textContent = c === live ? "Voice agent · live call" : "Voice agent · call record";
+  const row = state.queue.find((r) => r.listing_id === l.listing_id);
+  const qs = QUESTIONS.map(([k, label], i) => {
+    const v = fmtAnswer(k, a[k]), cls = v == null ? "" : BAD[k](a[k]) ? "flag" : "ans";
+    return `<div class="q ${cls}"><span class="ic">${v == null ? i + 1 : cls === "flag" ? "!" : "✓"}</span><span>${label}</span>
+      <span class="val ${v == null ? "pending" : ""}" title="${esc(v || "")}">${esc(v ?? (c.status === "in_progress" ? "listening…" : "—"))}</span></div>`;
+  }).join("");
+  const extras = Object.entries(a).filter(([k]) => EXTRA_LABELS[k]).map(([k, v]) => `${EXTRA_LABELS[k]}: <b>${esc(fmtAnswer(k, v))}</b>`).join(" · ");
+  const turns = c.transcript || [];
+  const seen = c.call_id === lastCall ? lastTurns : turns.length;   // only new turns animate
+  const bubbles = turns.map((t, i) => t.text == null
+    ? `<div class="bub clinic typing"><small>Front desk</small>…</div>`
+    : `<div class="bub ${t.speaker} ${i >= seen ? "new" : ""}"><small>${t.speaker === "agent" ? "AI agent" : "Front desk"}</small>${esc(t.text)}</div>`).join("");
+  let verdict = "";
+  if (row && (row.decision || row.needs_review) && c.status === "ended" && row.last_call?.call_id === c.call_id) {
+    const d = row.reviewed_decision ? DECISION[row.reviewed_decision] : row.needs_review ? DECISION.pending_review : DECISION[row.decision];
+    const rv = state.reviews.find((x) => x.eval_id === row.eval_id);
+    verdict = `<div class="verdict"><div class="sub">Evaluator agent's verdict</div>
+      <div class="big">${chip(d)} ${row.front_desk ? `<span class="chip ${row.front_desk === "good" ? "c-ok" : row.front_desk === "not_good" ? "c-bad" : ""}">front desk: ${esc(row.front_desk.replace("_", " "))}</span>` : ""}</div>
+      ${rv ? `<ul>${(rv.conflicts || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul><p class="sub">${esc(rv.rationale)}</p>` : ""}</div>`;
+  }
+  const oldTx = $("tx"), keep = oldTx && c.call_id === lastCall ? oldTx.scrollTop : null;
+  $("live").innerHTML = `
+    <div class="callhead"><div class="avatar">${esc(initials(l.full_name))}</div>
+      <div class="who"><b>${esc(l.full_name)}</b><span>${esc(l.listing_id)} · ${esc(l.address)}, ${esc(l.city)} · ${esc(l.phone)}</span></div>
+      <div class="wave ${c.status === "in_progress" ? "on" : ""}">${"<i></i>".repeat(7)}</div></div>
+    ${c.failure ? `<div class="verdict" style="border-color:#f4c5bd;background:#fff7f5"><b>Call failed:</b> ${esc(c.failure)}</div>` : ""}
+    ${c.brief?.evidence ? `<div class="extra" style="margin:12px 0 0">Claims brief the agent can cite: ${esc(c.brief.evidence)}</div>` : ""}
+    <div class="qs">${qs}</div>${extras ? `<div class="extra">${extras}</div>` : ""}
+    <div class="transcript" id="tx">${bubbles || `<div class="empty">${c.status === "ringing" ? "Ringing the clinic…" : "No transcript."}</div>`}</div>
+    ${verdict}`;
+  const tx = $("tx");
+  tx.scrollTop = keep == null || turns.length !== lastTurns ? tx.scrollHeight : keep;
+  lastTurns = turns.length; lastCall = c.call_id;
+}
+
+function renderReviews() {
+  const items = state.reviews;
+  $("n-review").textContent = items.length; $("n-review").className = "count" + (items.length ? " hot" : "");
+  $("reviews").innerHTML = items.length ? items.map((r) => `
+    <div class="rv"><div style="display:flex;justify-content:space-between;gap:8px"><div><h3>${esc(r.full_name)}</h3>
+      <div class="meta">${esc(r.listing_id)} · ${esc(r.address)}, ${esc(r.city)}</div></div>
+      <span class="chip c-warn">Agent proposes: ${esc(DECISION[r.decision]?.[0] || "no proposal")}</span></div>
+      <ul>${(r.conflicts || []).map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <p>${esc(r.rationale)}</p>
+      ${r.new_phone || r.new_address ? `<div class="sub">Heard on call: ${esc([r.new_address, r.new_phone].filter(Boolean).join(" · "))}</div>` : ""}
+      <div class="acts">
+        <button class="b-ok small-btn" data-eval="${r.eval_id}" data-d="verified_accepting">Confirm accepting</button>
+        <button class="b-warn small-btn" data-eval="${r.eval_id}" data-d="set_not_accepting">Not accepting</button>
+        <button class="b-bad small-btn" data-eval="${r.eval_id}" data-d="suppress_listing">Remove listing</button>
+        <button class="b-soft small-btn" data-eval="${r.eval_id}" data-d="no_change">No change</button>
+        ${r.call_id ? `<button class="b-soft small-btn" data-view="${esc(r.call_id)}">View call</button>` : ""}
+      </div></div>`).join("") : `<div class="card empty">Nothing waiting. Anything the agents can't decide confidently lands here.</div>`;
+}
+
+const FLAG_LABEL = { sanctioned_provider: "Sanctioned provider", license_inactive: "License inactive", contract_ended: "Contract ended",
+  office_not_in_directory: "Office not in directory", listing_removed: "Listing removed after call" };
+function renderFlags() {
+  const { flags, summary } = state.flags, open = flags.filter((f) => f.status === "open");
+  $("n-claims").textContent = open.length; $("n-claims").className = "count" + (open.length ? " hot" : "");
+  $("flagsum").innerHTML = Object.keys(FLAG_LABEL).map((k) => { const s = summary[k] || { count: 0, open: 0, amount: 0 };
+    return `<div class="fs"><div class="l">${FLAG_LABEL[k]}</div><div class="v">${s.open}</div><div class="s">open of ${s.count} · ${money(s.amount)} paid</div></div>`; }).join("");
+  $("flags").innerHTML = flags.length ? flags.slice(0, 300).map((f) => `<tr>
+      <td class="mono">${esc(f.claim_id)}<div class="sub">${esc(f.service_date)} · ${esc(f.procedure_code)}</div></td>
+      <td class="who"><b>${esc(f.full_name)}</b><span>${esc(f.credential)}</span></td>
+      <td><span class="sub">${esc(f.office)}</span></td>
+      <td><span class="chip ${f.flag_type === "listing_removed" || f.flag_type === "sanctioned_provider" ? "c-bad" : "c-warn"}">${esc(FLAG_LABEL[f.flag_type] || f.flag_type)}</span>
+        <div class="sub" style="margin-top:3px">${esc(f.reason)}</div></td>
+      <td class="num">${money(f.amount)}</td>
+      <td>${f.status === "open" ? `<span class="chip c-warn">Open</span>` : f.status === "confirmed" ? `<span class="chip c-bad">Confirmed</span>` : `<span class="chip">Dismissed</span>`}</td>
+      <td style="white-space:nowrap">${f.status === "open" ? `<button class="b-bad small-btn" data-flag="${f.flag_id}" data-s="confirmed">Send to SIU</button>
+        <button class="b-soft small-btn" data-flag="${f.flag_id}" data-s="dismissed">Dismiss</button>`
+        : `<button class="b-soft small-btn" data-flag="${f.flag_id}" data-s="open">Reopen</button>`}</td></tr>`).join("")
+    : `<tr><td colspan="7" class="empty">No flags yet. Click “Re-scan claims”.</td></tr>`;
+}
+
+function renderChanges() {
+  const rep = state.report, changes = rep?.changes || [];
+  const removed = (rep?.listings || []).filter((e) => e.final === "suppress_listing" || e.final === "set_not_accepting");
+  $("n-changes").textContent = changes.length + removed.length;
+  $("changes").innerHTML = `<div class="head"><h2>What the directory says now</h2><span class="sub">Old values are kept on each evaluation for audit</span></div>` +
+    (changes.length + removed.length ? changes.map((c) => `<div class="change"><span class="chip c-live">${esc(c.field)}</span><b>${esc(c.listing_id)}</b>
+      <s>${esc(c.old)}</s> → <span class="new">${esc(c.new)}</span></div>`).join("") +
+      removed.map((e) => `<div class="change">${chip(DECISION[e.final])}<b>${esc(e.listing_id)}</b> ${esc(e.full_name)} · ${esc(e.address)}
+      <span class="sub">${money(e.exposure_per_month)}/mo exposure removed · via ${esc(e.source)}</span></div>`).join("")
+    : `<div class="empty">No changes yet.</div>`);
+  $("summary").textContent = rep?.run?.summary || (rep ? "The summary is written when the run finishes." : "No run yet.");
+}
+
+async function refresh() {
+  const [run, queue, calls, reviews, flags, report] = await Promise.all([
+    j("/api/runs/current").catch(() => ({})), j("/api/queue").catch(() => []), j("/api/calls").catch(() => []),
+    j("/api/reviews").catch(() => []), j("/api/claim-flags").catch(() => state.flags), j("/api/report").catch(() => null),
+  ]);
+  Object.assign(state, { run, queue, calls, reviews, flags, report });
+  if (run.next_offset != null && document.activeElement !== $("offset") && !refresh.seeded) { $("offset").value = run.next_offset; refresh.seeded = true; }
+  renderSteps(); renderKpis(); renderQueue(); renderLive(); renderReviews(); renderFlags(); renderChanges();
+}
+
+$("start").onclick = async () => {
+  try { await post("/api/runs", { listing_limit: Number($("limit").value) || null, listing_offset: Number($("offset").value) || 0 });
+        pinned = null; toast("Verification run started"); refresh(); } catch (e) { toast(e.message); }
+};
+$("stop").onclick = () => post("/api/runs/stop").then(() => toast("Will stop after the current call"));
+$("recheckClaims").onclick = async () => { const r = await post("/api/claims/check");
+  toast(`Agent 2 scanned claims: ${Object.values(r).reduce((a, b) => a + b, 0)} new flag(s)`); refresh(); };
+$("tabs").onclick = (e) => { const b = e.target.closest(".tab"); if (!b) return;
+  document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("on", t === b));
+  document.querySelectorAll(".panel").forEach((p) => p.hidden = p.id !== "p-" + b.dataset.tab);
+  history.replaceState(null, "", "#" + b.dataset.tab); };
+document.addEventListener("click", async (e) => {
+  const t = e.target.closest("[data-callnow],[data-eval],[data-flag],[data-view],tr[data-call]"); if (!t) return;
+  if (t.dataset.callnow) {
+    t.disabled = true;
+    try { await post("/api/call", { listing_id: t.dataset.callnow }); pinned = null; toast(`Calling ${t.dataset.callnow}. Answer it on the clinic phone.`); }
+    catch (err) { toast("Could not call: " + err.message); }
+    return refresh();
+  }
+  if (t.dataset.eval) { await post(`/api/evaluations/${t.dataset.eval}/review`, { decision: t.dataset.d }); toast("Decision saved and applied to the directory"); }
+  else if (t.dataset.flag) { await post(`/api/claim-flags/${t.dataset.flag}`, { status: t.dataset.s }); toast(t.dataset.s === "confirmed" ? "Sent to Special Investigations" : "Flag updated"); }
+  else { const id = t.dataset.view || t.dataset.call; if (!id) return; pinned = id; $("livecard").scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+  refresh();
+});
+function openTab(name) { const b = document.querySelector(`.tab[data-tab="${name}"]`); if (b) b.click(); }
+if (location.hash) openTab(location.hash.slice(1));
+(function poll() { refresh().finally(() => setTimeout(poll, state.run.status === "running" ? 1000 : 3000)); })();
+</script>
+</body>
+</html>

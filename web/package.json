@@ -1,0 +1,14 @@
+{
+  "name": "ghostlisting-clinic-web",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/clinic.js --bundle --minify --format=iife --outfile=../agent/static/clinic.bundle.js"
+  },
+  "dependencies": {
+    "@azure/communication-calling": "1.46.1",
+    "@azure/communication-common": "2.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10"
+  }
+}
