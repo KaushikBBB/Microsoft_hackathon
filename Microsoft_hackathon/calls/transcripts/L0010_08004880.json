@@ -1,0 +1,36 @@
+{
+  "call_connection_id": "08004880-295d-412a-a1da-7a95b15feaff",
+  "listing": {
+    "listing_id": "L0010",
+    "full_name": "Elena Dabrowski",
+    "address": "1029 W Armitage Ave",
+    "city": "Chicago",
+    "zip": "60647",
+    "phone": "(773) 555-0182"
+  },
+  "status": "ended",
+  "transcript": [
+    {
+      "at": "2026-10-16T12:15:04+00:00",
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes about a minute. Is this the office of Elena Dabrowski at 1029 W Armitage Ave?"
+    },
+    {
+      "at": "2026-10-16T12:15:15+00:00",
+      "speaker": "clinic",
+      "text": "Nope."
+    },
+    {
+      "at": "2026-10-16T12:15:17+00:00",
+      "speaker": "agent",
+      "text": "Thank you, that's everything. Goodbye."
+    }
+  ],
+  "answers": {
+    "identity_confirmed": "no"
+  },
+  "end_reason": "wrong_office",
+  "failure": null,
+  "started_at": "2026-10-16T12:14:54.364705+00:00",
+  "ended_at": "2026-10-16T12:15:21.314026+00:00"
+}

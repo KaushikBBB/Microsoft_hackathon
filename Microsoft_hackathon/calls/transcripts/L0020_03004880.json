@@ -1,0 +1,191 @@
+{
+  "call_connection_id": "03004880-0740-4216-b3d2-da98fb397821",
+  "listing": {
+    "listing_id": "L0020",
+    "full_name": "Michael Patel",
+    "address": "660 Church St",
+    "city": "Evanston",
+    "zip": "60201",
+    "phone": "(847) 555-0136"
+  },
+  "brief": {
+    "last_intake_on": "2026-04-29",
+    "days_since_intake": 170,
+    "last_intake_said": "April 29, 2026, 170 days ago",
+    "last_visit_on": "2026-07-13",
+    "days_since_visit": 95,
+    "last_visit_said": "July 13, 2026, 95 days ago",
+    "visits_90d": 0,
+    "patients_90d": 0,
+    "intakes_12m": 4,
+    "submit_by": "October 30, 2026",
+    "complaints_90d": {
+      "couldnt_book": 2
+    },
+    "probe": true,
+    "evidence": "the last new-patient visit billed at this office was on April 29, 2026 (170 days ago); no visits were billed here in the last 90 days; 2 plan member(s) reported they couldn't book a new-patient appointment in the last 90 days"
+  },
+  "status": "ended",
+  "transcript": [
+    {
+      "at": "2026-10-16T14:41:38+00:00",
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes a couple of minutes. Is this the office of Michael Patel at 660 Church St?"
+    },
+    {
+      "at": "2026-10-16T14:41:47+00:00",
+      "speaker": "clinic",
+      "text": "No"
+    },
+    {
+      "at": "2026-10-16T14:41:49+00:00",
+      "speaker": "agent",
+      "text": "Just to check: is this Michael Patel's office, and only the address is different?"
+    },
+    {
+      "at": "2026-10-16T14:41:55+00:00",
+      "speaker": "clinic",
+      "text": "Yeah, the address is different."
+    },
+    {
+      "at": "2026-10-16T14:41:57+00:00",
+      "speaker": "agent",
+      "text": "Understood. Could you tell me the current street address for this office?"
+    },
+    {
+      "at": "2026-10-16T14:42:05+00:00",
+      "speaker": "clinic",
+      "text": "It's 2200 N Clark Street, Chicago."
+    },
+    {
+      "at": "2026-10-16T14:42:08+00:00",
+      "speaker": "agent",
+      "text": "Could you also update that address in the Lakeshore Health Plan provider portal, so the directory stays correct?"
+    },
+    {
+      "at": "2026-10-16T14:42:14+00:00",
+      "speaker": "clinic",
+      "text": "Yes, yes we will."
+    },
+    {
+      "at": "2026-10-16T14:42:16+00:00",
+      "speaker": "agent",
+      "text": "Does Michael Patel still see patients there?"
+    },
+    {
+      "at": "2026-10-16T14:42:21+00:00",
+      "speaker": "clinic",
+      "text": "Yes."
+    },
+    {
+      "at": "2026-10-16T14:42:23+00:00",
+      "speaker": "clinic",
+      "text": "He sees the patients in the new address, yes."
+    },
+    {
+      "at": "2026-10-16T14:42:25+00:00",
+      "speaker": "agent",
+      "text": "Do you accept Lakeshore Health Plan?"
+    },
+    {
+      "at": "2026-10-16T14:42:30+00:00",
+      "speaker": "clinic",
+      "text": "Yes, we do."
+    },
+    {
+      "at": "2026-10-16T14:42:32+00:00",
+      "speaker": "agent",
+      "text": "Is Michael Patel taking new patients on Lakeshore Health Plan?"
+    },
+    {
+      "at": "2026-10-16T14:42:37+00:00",
+      "speaker": "clinic",
+      "text": "Que si do?"
+    },
+    {
+      "at": "2026-10-16T14:42:45+00:00",
+      "speaker": "agent",
+      "text": "I ask because our claims show Michael Patel's last new-patient visit billed here was on April 29, 2026, 170 days ago. If Michael Patel is taking new patients, why aren't we seeing new-patient claims? Has Michael Patel seen new patients recently whose claims haven't been submitted to Lakeshore Health Plan yet?"
+    },
+    {
+      "at": "2026-10-16T14:43:05+00:00",
+      "speaker": "clinic",
+      "text": "Yeah, I think there are some of the patients who has been hitting the office new, but we haven't been submitting the claims yet."
+    },
+    {
+      "at": "2026-10-16T14:43:06+00:00",
+      "speaker": "clinic",
+      "text": "We both summoned it, yep."
+    },
+    {
+      "at": "2026-10-16T14:43:10+00:00",
+      "speaker": "agent",
+      "text": "When did the most recent new patient start?"
+    },
+    {
+      "at": "2026-10-16T14:43:18+00:00",
+      "speaker": "clinic",
+      "text": "A few days back, a week ago, maybe at October 11"
+    },
+    {
+      "at": "2026-10-16T14:43:29+00:00",
+      "speaker": "agent",
+      "text": "Please submit those claims to Lakeshore Health Plan within 14 days, by October 30, 2026. We'll check our records again then, and follow up if we don't see them. \n\nWhat is the earliest available appointment for a new patient?"
+    },
+    {
+      "at": "2026-10-16T14:43:35+00:00",
+      "speaker": "clinic",
+      "text": "It's November 20."
+    },
+    {
+      "at": "2026-10-16T14:43:39+00:00",
+      "speaker": "agent",
+      "text": "Is (847) 555-0136 the best number for new patients to call?"
+    },
+    {
+      "at": "2026-10-16T14:43:46+00:00",
+      "speaker": "clinic",
+      "text": "Yes, it is. But there's been a little change."
+    },
+    {
+      "at": "2026-10-16T14:43:50+00:00",
+      "speaker": "agent",
+      "text": "Understood. Could you provide the correct phone number, and I'll read it back to confirm?"
+    },
+    {
+      "at": "2026-10-16T14:43:57+00:00",
+      "speaker": "clinic",
+      "text": "It's 847-555-0135."
+    },
+    {
+      "at": "2026-10-16T14:44:00+00:00",
+      "speaker": "agent",
+      "text": "That's 8 4 7, 5 5 5, 0 1 3 5. Is that right?"
+    },
+    {
+      "at": "2026-10-16T14:44:05+00:00",
+      "speaker": "clinic",
+      "text": "Yes, it is."
+    },
+    {
+      "at": "2026-10-16T14:44:08+00:00",
+      "speaker": "agent",
+      "text": "Thank you, that's everything. Goodbye."
+    }
+  ],
+  "answers": {
+    "identity_confirmed": "moved: 2200 N Clark St, Chicago",
+    "portal_update_asked": "will_update",
+    "practicing_here": "yes",
+    "accepts_plan": "yes",
+    "accepting_new": "yes",
+    "claims_pending": "yes",
+    "last_new_patient_on": "2026-10-11",
+    "next_new_appt": "2026-11-20",
+    "phone_correct": "8475550135"
+  },
+  "end_reason": "completed",
+  "failure": null,
+  "started_at": "2026-10-16T14:41:27.998804+00:00",
+  "ended_at": "2026-10-16T14:44:13.500791+00:00"
+}

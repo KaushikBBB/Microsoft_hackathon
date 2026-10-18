@@ -1,0 +1,54 @@
+{
+  "call_connection_id": "07004780-0c10-4248-8ff3-38dd24a94a17",
+  "listing": {
+    "listing_id": "L0011",
+    "full_name": "Rosa Patel",
+    "address": "4268 E Chicago Ave, Suite 808",
+    "city": "Chicago",
+    "zip": "60611",
+    "phone": "(312) 555-0131"
+  },
+  "brief": {
+    "last_intake_on": "2025-12-11",
+    "days_since_intake": 309,
+    "last_intake_said": "December 11, 2025, 309 days ago",
+    "last_visit_on": "2026-02-27",
+    "days_since_visit": 231,
+    "last_visit_said": "February 27, 2026, 231 days ago",
+    "visits_90d": 0,
+    "patients_90d": 0,
+    "intakes_12m": 2,
+    "submit_by": "October 30, 2026",
+    "complaints_90d": {
+      "couldnt_book": 2
+    },
+    "probe": true,
+    "evidence": "the last new-patient visit billed at this office was on December 11, 2025 (309 days ago); no visits were billed here in the last 90 days; 2 plan member(s) reported they couldn't book a new-patient appointment in the last 90 days"
+  },
+  "status": "ended",
+  "transcript": [
+    {
+      "at": "2026-10-16T14:40:56+00:00",
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes a couple of minutes. Is this the office of Rosa Patel at 4268 East Chicago Avenue, Suite 808?"
+    },
+    {
+      "at": "2026-10-16T14:41:06+00:00",
+      "speaker": "clinic",
+      "text": "Yes, it is, but the therapist retired and she's no longer taking new patients."
+    },
+    {
+      "at": "2026-10-16T14:41:11+00:00",
+      "speaker": "agent",
+      "text": "Thank you, that's everything. Goodbye."
+    }
+  ],
+  "answers": {
+    "identity_confirmed": "yes",
+    "practicing_here": "retired"
+  },
+  "end_reason": "completed",
+  "failure": null,
+  "started_at": "2026-10-16T14:40:37.448110+00:00",
+  "ended_at": "2026-10-16T14:41:15.976242+00:00"
+}

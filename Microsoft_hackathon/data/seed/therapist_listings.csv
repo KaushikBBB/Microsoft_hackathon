@@ -1,0 +1,63 @@
+listing_id,therapist_id,address,city,zip,lat,lon,phone,accepting_new,last_verified_on,last_verified_how,is_suppressed,true_status
+L0001,1016328704,"4199 W Foster Ave, Suite 201",Chicago,60625,41.974619,-87.6915,(773) 555-0155,true,2026-06-08,attestation,false,active_open
+L0002,1016400529,4812 N Clark St,Chicago,60626,41.998948,-87.676638,(773) 555-0197,true,2026-06-21,attestation,false,full_caseload
+L0003,1016400529,"429 W Chicago Ave, Suite 805",Chicago,60622,41.906125,-87.683365,(773) 555-0123,true,2026-08-15,attestation,false,full_caseload
+L0004,1031051836,"847 N 1st St, Suite 606",DeKalb,60115,41.928514,-88.741313,(815) 555-0185,false,2026-07-12,call,false,full_caseload
+L0005,1046537555,4158 N LaSalle Dr,Chicago,60610,41.911035,-87.638521,(312) 555-0151,true,2026-09-10,attestation,false,active_open
+L0006,1053100339,"2167 S Washington St, Suite 709",Naperville,60540,41.756383,-88.153012,(630) 555-0100,true,2026-08-27,attestation,false,active_open
+L0007,1117182273,3063 E Ogden Ave,Naperville,60540,41.764524,-88.150134,(630) 555-0180,true,2026-08-13,attestation,false,active_open
+L0008,1117182273,"2287 N Southport Ave, Suite 508",Chicago,60657,41.938647,-87.665765,(773) 555-0189,false,2026-07-12,attestation,false,active_open
+L0009,1118244932,"2060 Chicago Ave, Suite 901",Evanston,60201,42.046415,-87.680619,(847) 555-0170,false,2026-09-30,attestation,false,active_open
+L0010,1133387260,1029 W Armitage Ave,Chicago,60647,41.912205,-87.687366,(773) 555-0182,true,2026-09-21,claims,false,active_open
+L0011,1160733758,"4268 E Chicago Ave, Suite 808",Chicago,60611,41.894865,-87.613937,(312) 555-0131,true,2026-03-23,attestation,false,retired
+L0012,1192832768,4263 N Southport Ave,Chicago,60657,41.941008,-87.656166,(773) 555-0108,true,2026-06-03,attestation,false,full_caseload
+L0013,1193149196,"2288 W Chicago Ave, Suite 508",Chicago,60622,41.898938,-87.66838,(773) 555-0119,true,2026-05-25,attestation,false,wrong_phone
+L0014,1193149196,2823 N California Ave,Chicago,60647,41.919844,-87.702053,(773) 555-0148,false,2026-06-15,call,false,active_open
+L0015,1218196008,"2056 N Southport Ave, Suite 701",Chicago,60657,41.949259,-87.642113,(773) 555-0140,false,2026-09-18,attestation,false,active_open
+L0016,1231665872,3262 Chicago Ave,Evanston,60201,42.059037,-87.685295,(847) 555-0183,true,2026-04-27,attestation,false,retired
+L0017,1280598263,"4214 E Chicago Ave, Suite 208",Chicago,60611,41.894799,-87.633587,(312) 555-0112,true,2026-07-01,claims,false,active_open
+L0018,1288095700,"1364 Lake St, Suite 506",Oak Park,60302,41.883921,-87.799789,(708) 555-0179,true,2026-08-15,attestation,false,active_open
+L0019,1288095700,2791 N Southport Ave,Chicago,60657,41.944067,-87.648467,(773) 555-0180,true,2026-06-02,call,false,active_open
+L0020,1320037918,660 Church St,Evanston,60201,42.062652,-87.70772,(847) 555-0136,true,2026-06-28,claims,false,moved
+L0021,1341316473,"923 N Kedzie Ave, Suite 501",Chicago,60618,41.944972,-87.715811,(773) 555-0105,true,2026-09-03,attestation,false,active_open
+L0022,1341316473,"3036 S Ashland Ave, Suite 409",Chicago,60608,41.847703,-87.682235,(773) 555-0152,true,2026-08-21,attestation,false,active_open
+L0023,1354278495,3233 Sycamore Rd,DeKalb,60115,41.922765,-88.762574,(815) 555-0163,true,2026-03-02,attestation,false,full_caseload
+L0024,1354278495,"3877 N Halsted St, Suite 501",Chicago,60614,41.931626,-87.663619,(773) 555-0159,false,2026-03-09,attestation,false,full_caseload
+L0025,1356159511,3718 N Kimball Ave,Chicago,60625,41.97414,-87.71419,(773) 555-0138,true,2026-06-18,call,false,active_open
+L0026,1366299463,"3251 W Armitage Ave, Suite 706",Chicago,60647,41.920067,-87.707322,(773) 555-0173,false,2026-03-05,call,false,moved
+L0027,1366299463,"279 N Milwaukee Ave, Suite 101",Chicago,60622,41.897986,-87.670938,(773) 555-0177,true,2026-07-22,attestation,false,active_open
+L0028,1427109479,1985 Chicago Ave,Evanston,60201,42.061797,-87.682649,(847) 555-0128,true,2026-06-19,call,false,active_open
+L0029,1452991247,"1220 S Cottage Grove Ave, Suite 105",Chicago,60615,41.805944,-87.594212,(773) 555-0156,true,2026-09-26,attestation,false,active_open
+L0030,1452991247,1176 W Chicago Ave,Chicago,60622,41.892311,-87.680608,(773) 555-0141,true,2026-06-14,attestation,false,active_open
+L0031,1458685017,4518 W Armitage Ave,Chicago,60647,41.913987,-87.712236,(773) 555-0134,true,2026-06-04,attestation,false,retired
+L0032,1465787137,4047 W Fullerton Ave,Chicago,60614,41.917445,-87.643911,(773) 555-0143,false,2026-07-24,call,false,wrong_phone
+L0033,1475107995,1948 W Division St,Chicago,60610,41.902615,-87.645881,(312) 555-0150,true,2026-06-14,attestation,false,active_open
+L0034,1487347142,214 S Washington St,Naperville,60540,41.763498,-88.132695,(630) 555-0158,false,2026-09-30,attestation,false,active_open
+L0035,1514627045,3143 E 63rd St,Chicago,60637,41.783428,-87.594377,(773) 555-0160,true,2026-03-03,attestation,false,full_caseload
+L0036,1514627045,4699 N Damen Ave,Chicago,60622,41.89213,-87.66559,(773) 555-0128,true,2026-04-10,attestation,false,full_caseload
+L0037,1564139537,"2575 W 18th St, Suite 301",Chicago,60608,41.854428,-87.670433,(773) 555-0104,true,2026-09-14,call,false,active_open
+L0038,1569816931,"2023 W Foster Ave, Suite 806",Chicago,60625,41.981023,-87.7154,(773) 555-0185,true,2026-07-26,attestation,false,moved
+L0039,1586923223,1365 S Washington St,Naperville,60540,41.764651,-88.134095,(630) 555-0162,true,2026-06-14,call,false,wrong_phone
+L0040,1594078168,"3135 N Milwaukee Ave, Suite 406",Chicago,60647,41.930493,-87.707969,(773) 555-0112,false,2026-04-04,attestation,false,moved
+L0041,1637940267,"596 S Ellis Ave, Suite 208",Chicago,60637,41.790285,-87.599512,(773) 555-0111,true,2026-07-07,claims,false,active_open
+L0042,1637940267,"4991 W Jefferson Ave, Suite 604",Naperville,60540,41.769919,-88.137003,(630) 555-0116,true,2026-07-16,call,false,active_open
+L0043,1656272980,4640 E Lincoln Hwy,DeKalb,60115,41.923526,-88.740863,(815) 555-0129,true,2026-07-17,attestation,false,active_open
+L0044,1671657264,"4982 N Sheridan Rd, Suite 303",Chicago,60626,42.015132,-87.660454,(773) 555-0169,true,2026-02-24,attestation,false,wrong_phone
+L0045,1691669786,"1179 W Chicago Ave, Suite 406",Chicago,60622,41.893966,-87.666104,(773) 555-0102,true,2026-09-02,attestation,false,active_open
+L0046,1691669786,"3548 N Halsted St, Suite 208",Chicago,60614,41.915657,-87.666243,(773) 555-0157,true,2026-09-04,claims,false,active_open
+L0047,1719022943,4227 E 63rd St,Chicago,60637,41.781886,-87.615004,(773) 555-0193,true,2026-07-02,attestation,false,active_open
+L0048,1735454948,355 Lake St,Oak Park,60302,41.890111,-87.785355,(708) 555-0151,true,2026-07-26,attestation,false,full_caseload
+L0049,1746872344,3733 N Milwaukee Ave,Chicago,60647,41.925024,-87.701881,(773) 555-0118,true,2026-07-18,call,false,active_open
+L0050,1763116567,4895 W 18th St,Chicago,60608,41.843418,-87.665805,(773) 555-0176,true,2026-05-29,attestation,false,active_open
+L0051,1773872142,"912 Madison St, Suite 904",Oak Park,60302,41.893399,-87.786452,(708) 555-0155,true,2026-06-02,attestation,false,active_open
+L0052,1773872142,"2876 N Kimball Ave, Suite 206",Chicago,60625,41.969253,-87.712151,(773) 555-0154,true,2026-08-25,claims,false,active_open
+L0053,1777014360,1350 N Clark St,Chicago,60626,42.01277,-87.672435,(773) 555-0110,true,2026-06-08,attestation,false,active_open
+L0054,1801326772,3152 W Cermak Rd,Chicago,60608,41.850027,-87.662328,(773) 555-0175,false,2026-09-01,attestation,false,active_open
+L0055,1849696533,3465 S Washington St,Naperville,60540,41.767734,-88.136184,(630) 555-0196,false,2026-09-15,attestation,false,active_open
+L0056,1855744433,"2456 N California Ave, Suite 209",Chicago,60647,41.928959,-87.695208,(773) 555-0127,true,2026-05-29,attestation,false,active_open
+L0057,1882081213,986 N Rush St,Chicago,60611,41.898289,-87.628174,(312) 555-0147,true,2026-09-07,attestation,false,active_open
+L0058,1895798688,3615 W Division St,Chicago,60610,41.908978,-87.631457,(312) 555-0179,true,2026-08-25,call,false,active_open
+L0059,1945314734,"2290 W Jefferson Ave, Suite 506",Naperville,60540,41.756157,-88.128693,(630) 555-0144,true,2026-08-29,call,false,active_open
+L0060,1967054663,"3383 N Michigan Ave, Suite 102",Chicago,60601,41.878911,-87.628416,(312) 555-0195,true,2026-07-09,call,false,active_open
+L0061,1989413434,"2892 Lake St, Suite 602",Oak Park,60302,41.888241,-87.791818,(708) 555-0106,true,2026-06-19,call,false,active_open
+L0062,1990916995,"768 N Rush St, Suite 708",Chicago,60611,41.887493,-87.616793,(312) 555-0177,true,2026-06-18,attestation,false,active_open

@@ -1,0 +1,7 @@
+.env
+__pycache__/
+.venv/
+node_modules/
+agent/.clinic_identity
+calls/*.out
+calls/*.log

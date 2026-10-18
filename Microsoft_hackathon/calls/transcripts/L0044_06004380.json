@@ -1,0 +1,66 @@
+{
+  "call_connection_id": "06004380-e900-4d99-9314-d5270df3ed3b",
+  "listing": {
+    "listing_id": "L0044",
+    "full_name": "Priya Kaminski",
+    "address": "4982 N Sheridan Rd, Suite 303",
+    "city": "Chicago",
+    "zip": "60626",
+    "phone": "(773) 555-0169"
+  },
+  "status": "ended",
+  "transcript": [
+    {
+      "at": "2026-10-16T10:01:26+00:00",
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes about a minute.\n\nIs this the office of Priya Kaminski at 4982 N Sheridan Rd, Suite 303?"
+    },
+    {
+      "at": "2026-10-16T10:01:26+00:00",
+      "speaker": "clinic",
+      "text": "No."
+    },
+    {
+      "at": "2026-10-16T10:01:32+00:00",
+      "speaker": "agent",
+      "text": "Sorry, just to clarify, is this not the office of Priya Kaminski at 4982 N Sheridan Rd, Suite 303?"
+    },
+    {
+      "at": "2026-10-16T10:01:45+00:00",
+      "speaker": "clinic",
+      "text": "No, this is the office of Priya Kaminski."
+    },
+    {
+      "at": "2026-10-16T10:01:54+00:00",
+      "speaker": "agent",
+      "text": "Does Priya Kaminski still see patients at this location?"
+    },
+    {
+      "at": "2026-10-16T10:01:57+00:00",
+      "speaker": "clinic",
+      "text": "This is the office of Priya Kaminski."
+    },
+    {
+      "at": "2026-10-16T10:02:00+00:00",
+      "speaker": "agent",
+      "text": "Thank you for confirming. Just to be sure, does Priya Kaminski still see patients at this location?"
+    },
+    {
+      "at": "2026-10-16T10:02:06+00:00",
+      "speaker": "clinic",
+      "text": "Yes, she does."
+    },
+    {
+      "at": "2026-10-16T10:02:09+00:00",
+      "speaker": "agent",
+      "text": "Do you accept Lakeshore Health Plan?"
+    }
+  ],
+  "answers": {
+    "identity_confirmed": "yes",
+    "practicing_here": "yes"
+  },
+  "end_reason": "hung_up_early",
+  "failure": null,
+  "started_at": "2026-10-16T10:01:05.107125+00:00"
+}

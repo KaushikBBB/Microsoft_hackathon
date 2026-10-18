@@ -1,0 +1,26 @@
+{
+  "call_connection_id": "05004480-8470-41f2-b853-cb66fb84dfd3",
+  "listing": {
+    "listing_id": "L0001",
+    "full_name": "Natalia Holloway",
+    "address": "4199 W Foster Ave, Suite 201",
+    "city": "Chicago",
+    "zip": "60625",
+    "phone": "(773) 555-0155"
+  },
+  "transcript": [
+    {
+      "speaker": "agent",
+      "text": "Hi, I'm an automated assistant calling for Lakeshore Health Plan to update our provider directory. This takes about a minute. Is this the office of Natalia Holloway at 4199 W Foster Ave, Suite 201?"
+    },
+    {
+      "speaker": "clinic",
+      "text": "Thank you."
+    },
+    {
+      "speaker": "agent",
+      "text": "I understand. Thank you for letting me know. I\u2019ll note that and end the call now. Goodbye."
+    }
+  ],
+  "started_at": "2026-10-16T08:37:48.929760+00:00"
+}
